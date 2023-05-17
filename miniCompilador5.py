@@ -144,6 +144,8 @@ def get_etiqueta(token):
         if es_pal_res(token):
             if es_tipo(token):
                 etiqueta = "tipo"
+            elif token == "function":
+                etiqueta = "funcion"
             else:
                 etiqueta = "palres"
         else:
