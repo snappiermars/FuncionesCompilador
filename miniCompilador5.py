@@ -35,7 +35,7 @@ def quita_comentarios(archivoEnt, archivoSal):
     return None
 
 def es_simbolo_esp(caracter):
-    return caracter in "+-*;,.:!=%&/()[]<><=>=:="
+    return caracter in "+-*;,.:!=%&/()[]<><=>=:={}"
 
 def es_separador(caracter):
     return caracter in " \n\t"
@@ -353,6 +353,8 @@ for t in tokens:           # revisión de todos los tokens
         elif (get_etiqueta(t)=='id'):
             estado = 'B'
             expresion.append(t)
+        elif (get_etiqueta(t)== "funcion"):
+            estado = 'E'
     elif estado == 'A':   #estamos dentro de un print
         if t=='(':
             estado = 'A1'
@@ -421,6 +423,10 @@ for t in tokens:           # revisión de todos los tokens
         if get_etiqueta(t)=='id':
             expresion.append(t)
             estado = 'B3'
+    elif estado == 'E':
+        if get_etiqueta(t) == 'id':
+            codigo.append("#"+t)
+            estado = 'E1'
             
 if estado=='Z':  #toda la compilación fue correcta
     print(codigo)
