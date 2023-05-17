@@ -130,7 +130,7 @@ def separa_tokens2(filename):
     return tokens
 
 def es_pal_res(token):
-    return token in ["main","var","if","else","for","print","read","int","float","char","string", "function"]
+    return token in ["main","var","if","else","for","print","read","int","float","char","string", "function","return"]
 
 def es_tipo(token):
     return token in ["int","float","char","string"]
