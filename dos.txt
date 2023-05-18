@@ -8,8 +8,9 @@ main(){
 
  function doble (a){
  b = a * c;
- return
+ return b;
 }
+ c = 2;
  e = 5;
  d = doble(e);
  print(d);

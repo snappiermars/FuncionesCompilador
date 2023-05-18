@@ -350,18 +350,20 @@ for t in tokens:           # revisión de todos los tokens
             estado = 'A'
         elif (get_etiqueta(t)=='id'):
             estado = 'B'
-            asignacion = t
+            varCall = t
             expresion.append(t)
         elif (t== 'function'):
             estado = 'E'
         elif t == 'return':
             estado = 'E5'
     elif estado == 'A':   #estamos dentro de un print
+        print("Estoy dentro de un print!!!")
         if t=='(':
             estado = 'A1'
         else:
             print('error! se esperaba "("')
     elif estado == 'A1':
+        print("A ver si aqui esta el problema???")
         etiqueta = get_etiqueta(t)  #checamos si el print tiene variable o cadena
         if etiqueta == 'entero':          
             codigo.append('INT9 '+ t +';')
@@ -457,8 +459,8 @@ for t in tokens:           # revisión de todos los tokens
             print('error! se esperaba "{"')
     elif estado == 'E5':
         print("ESTOY EN EL ESTADO E5!!!! TODO BIEN HASTA AQUI")
-        if t == '}':
-            
+        if get_etiqueta(t) == 'id':
+            asignacion = t
             codigo.pop()
             codigo.append('LDA '+asignacion+';')
             
@@ -484,18 +486,14 @@ for t in tokens:           # revisión de todos los tokens
         print("ESTOY EN EL ESTADO E7!!!! TODO BIEN HASTA AQUI")
         codigo.append('LDA '+t+';')
         codigo.append('CALL #'+nombreFuncion)
+        codigo.append('STA '+ varCall + ';')
         estado = 'E8'
     elif estado == 'E8':
         print("ESTOY EN EL ESTADO E8!!!! TODO BIEN HASTA AQUI")
         if t == ')':
-            estado = 'E9'
-        else:
-            print('error! se esperaba ")"')
-    elif estado == 'E9':
-        if t == ';':
             estado = 'Z'
         else:
-            print('error! se esperaba ";"')
+            print('error! se esperaba ")"')
         
         
 if estado=='Z':  #toda la compilación fue correcta
