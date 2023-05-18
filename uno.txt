@@ -3,16 +3,15 @@ var
   /* comentario */
 
 main(){
-
+c = 2;
 /* este es un comentario 
 de mas de una linea */
 
  function doble (a){
  b = a * c;
+
  return b;
 }
- c = 2;
  e = 5;
  d = doble(e);
- print(d);
 }

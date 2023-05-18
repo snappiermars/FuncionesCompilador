@@ -3,15 +3,14 @@ var
   
 
 main(){
-
+c = 2;
 
 
  function doble (a){
  b = a * c;
+
  return b;
 }
- c = 2;
  e = 5;
  d = doble(e);
- print(d);
 }
