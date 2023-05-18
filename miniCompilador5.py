@@ -35,7 +35,7 @@ def quita_comentarios(archivoEnt, archivoSal):
     return None
 
 def es_simbolo_esp(caracter):
-    return caracter in "+-*;,.:!=%&/()[]<><=>=:={}"
+    return caracter in "+-*;,.:!=%&/()[]<><=>=:="
 
 def es_separador(caracter):
     return caracter in " \n\t"
@@ -144,8 +144,6 @@ def get_etiqueta(token):
         if es_pal_res(token):
             if es_tipo(token):
                 etiqueta = "tipo"
-            elif token == "function":
-                etiqueta = "funcion"
             else:
                 etiqueta = "palres"
         else:
@@ -352,15 +350,18 @@ for t in tokens:           # revisión de todos los tokens
             estado = 'A'
         elif (get_etiqueta(t)=='id'):
             estado = 'B'
+            asignacion = t
             expresion.append(t)
-        elif (get_etiqueta(t)== "funcion"):
+        elif (t== 'function'):
             estado = 'E'
+        elif t == 'return':
+            estado = 'E5'
     elif estado == 'A':   #estamos dentro de un print
         if t=='(':
             estado = 'A1'
         else:
             print('error! se esperaba "("')
-    elif estado == "A1":
+    elif estado == 'A1':
         etiqueta = get_etiqueta(t)  #checamos si el print tiene variable o cadena
         if etiqueta == 'entero':          
             codigo.append('INT9 '+ t +';')
@@ -424,10 +425,52 @@ for t in tokens:           # revisión de todos los tokens
             expresion.append(t)
             estado = 'B3'
     elif estado == 'E':
+        print("ESTOY EN EL ESTADO E!!!! TODO BIEN HASTA AQUI")
         if get_etiqueta(t) == 'id':
-            codigo.append("#"+t)
+            nombreFuncion = t
+            codigo.append('#'+t)
             estado = 'E1'
-            
+    elif estado == 'E1':
+        print("ESTOY EN EL ESTADO E1!!!! TODO BIEN HASTA AQUI")
+        if t=='(':
+            estado = 'E2'
+        else:
+            print('error! se esperaba "("')
+    elif estado == 'E2':
+        print("ESTOY EN EL ESTADO E2!!!! TODO BIEN HASTA AQUI")
+        argumento = t
+        estado = 'E3'
+    elif estado == 'E3':
+        print("ESTOY EN EL ESTADO E3!!!! TODO BIEN HASTA AQUI")
+        if t == ')':
+            estado = 'E4'
+        else:
+            print('error! se esperaba ")"')
+    elif estado == 'E4':
+        print("ESTOY EN EL ESTADO E4!!!! TODO BIEN HASTA AQUI")
+        if t=='{':
+            estado = 'Z'
+        else:
+            print('error! se esperaba "{"')
+    elif estado == 'E5':
+        print("ESTOY EN EL ESTADO E5!!!! TODO BIEN HASTA AQUI")
+        if t == '}':
+            """
+            codigo.pop()
+            codigo.append('LDA '+asignacion+';')
+            pilatemp = []
+            busqueda = 'LDA ' + argumento
+            while argumento != busqueda:
+                busqueda = codigo.pop()
+                pilatemp.append(busqueda)
+            pilatemp.pop()
+            while len(pilatemp) != 0:
+                codigo.append(pilatemp.pop())
+            """
+            codigo.append('RET')
+            estado = 'Z'
+        else:
+            print("Error! se esperaba '}'")
 if estado=='Z':  #toda la compilación fue correcta
     print(codigo)
 else:

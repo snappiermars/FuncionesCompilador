@@ -1,0 +1,13 @@
+var
+  int a,b,c;
+  /* comentario */
+
+main(){
+
+/* este es un comentario 
+de mas de una linea */
+
+ function doble (a){
+ b = a * c;
+ return
+}

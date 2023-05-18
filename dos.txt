@@ -1,0 +1,12 @@
+var
+  int a,b,c;
+  
+
+main(){
+
+
+
+ function doble (a){
+ b = a * c;
+ return
+}
