@@ -400,9 +400,12 @@ for t in tokens:           # revisión de todos los tokens
             codigo.append('LDV '+ t +';')
             codigo.append('STA '+expresion[0]+';')
             estado = 'B2'
-        elif get_etiqueta(t)=='id':            
-            estado = 'B3'            
-            expresion.append(t)
+        elif get_etiqueta(t)=='id':
+            if t == nombreFuncion:
+                estado = 'E6'
+            else:
+                estado = 'B3'            
+                expresion.append(t)
     elif estado == 'B2':
         if t==';':
             estado = 'Z'   #terminó bien la asignacion de la expresión            
@@ -471,6 +474,30 @@ for t in tokens:           # revisión de todos los tokens
             estado = 'Z'
         else:
             print("Error! se esperaba '}'")
+    elif estado == 'E6':
+        print("ESTOY EN EL ESTADO E6!!!! TODO BIEN HASTA AQUI")
+        if t=='(':
+            estado = 'E7'
+        else:
+            print('error! se esperaba "("')
+    elif estado == 'E7':
+        print("ESTOY EN EL ESTADO E7!!!! TODO BIEN HASTA AQUI")
+        codigo.append('LDA '+t+';')
+        codigo.append('CALL #'+nombreFuncion)
+        estado = 'E8'
+    elif estado == 'E8':
+        print("ESTOY EN EL ESTADO E8!!!! TODO BIEN HASTA AQUI")
+        if t == ')':
+            estado = 'E9'
+        else:
+            print('error! se esperaba ")"')
+    elif estado == 'E9':
+        if t == ';':
+            estado = 'Z'
+        else:
+            print('error! se esperaba ";"')
+        
+        
 if estado=='Z':  #toda la compilación fue correcta
     print(codigo)
 else:

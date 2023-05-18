@@ -1,5 +1,5 @@
 var
-  int a,b,c;
+  int a,b,c,d,e;
   
 
 main(){
@@ -9,4 +9,8 @@ main(){
  function doble (a){
  b = a * c;
  return
+}
+ e = 5;
+ d = doble(e);
+ print(d);
 }

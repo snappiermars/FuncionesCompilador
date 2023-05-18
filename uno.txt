@@ -1,5 +1,5 @@
 var
-  int a,b,c;
+  int a,b,c,d,e;
   /* comentario */
 
 main(){
@@ -10,4 +10,8 @@ de mas de una linea */
  function doble (a){
  b = a * c;
  return
+}
+ e = 5;
+ d = doble(e);
+ print(d);
 }
