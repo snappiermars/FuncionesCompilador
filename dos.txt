@@ -6,11 +6,11 @@ main(){
 c = 2;
 
 
- function doble (a){
+ function miFuncion (a){
  b = a * c;
 
  return b;
 }
  e = 5;
- d = doble(e);
+ d = miFuncion(e);
 }

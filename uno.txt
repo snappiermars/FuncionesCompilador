@@ -7,11 +7,11 @@ c = 2;
 /* este es un comentario 
 de mas de una linea */
 
- function doble (a){
+ function miFuncion (a){
  b = a * c;
 
  return b;
 }
  e = 5;
- d = doble(e);
+ d = miFuncion(e);
 }
