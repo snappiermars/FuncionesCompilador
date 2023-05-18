@@ -455,18 +455,18 @@ for t in tokens:           # revisión de todos los tokens
     elif estado == 'E5':
         print("ESTOY EN EL ESTADO E5!!!! TODO BIEN HASTA AQUI")
         if t == '}':
-            """
+            
             codigo.pop()
             codigo.append('LDA '+asignacion+';')
+            
             pilatemp = []
-            busqueda = 'LDA ' + argumento
-            while argumento != busqueda:
-                busqueda = codigo.pop()
-                pilatemp.append(busqueda)
-            pilatemp.pop()
+            busqueda = codigo.index('LDA ' + argumento+';')
+            while len(codigo) != busqueda:
+                pilatemp.append(codigo.pop())
+            
             while len(pilatemp) != 0:
                 codigo.append(pilatemp.pop())
-            """
+            
             codigo.append('RET')
             estado = 'Z'
         else:
