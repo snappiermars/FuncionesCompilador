@@ -463,7 +463,7 @@ for t in tokens:           # revisión de todos los tokens
             busqueda = codigo.index('LDA ' + argumento+';')
             while len(codigo) != busqueda:
                 pilatemp.append(codigo.pop())
-            
+            pilatemp.pop()
             while len(pilatemp) != 0:
                 codigo.append(pilatemp.pop())
             
